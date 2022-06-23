@@ -1,0 +1,89 @@
+[
+    {
+        "id": "b2d1cb50ccfed063",
+        "type": "inject",
+        "z": "42de329ec6ab94e4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "73952059c2b41753"
+            ]
+        ]
+    },
+    {
+        "id": "48f232168f56760b",
+        "type": "debug",
+        "z": "42de329ec6ab94e4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "73952059c2b41753",
+        "type": "exec",
+        "z": "42de329ec6ab94e4",
+        "command": "python3 /home/pi/AHT10/aht10.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "34a1ed977c7fc2b0"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "34a1ed977c7fc2b0",
+        "type": "function",
+        "z": "42de329ec6ab94e4",
+        "name": "Parse Data",
+        "func": "msg.payload = {\n    \"c\" : msg.payload.split(\"C\")[0].split(\"Temperature: \")[1],\n    \"f\" :  (msg.payload.split(\"C\")[0].split(\"Temperature: \")[1] * 1.8 + 32).toString(),\n    \"h\":msg.payload.split(\"Humidity: \")[1].split(\"%\")[0],\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "48f232168f56760b"
+            ]
+        ]
+    }
+]
