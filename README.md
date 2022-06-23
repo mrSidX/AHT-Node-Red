@@ -1,3 +1,5 @@
+INSTALLATION:
+
 Import the .json to your node-red instance.
 
 Make a folder located at:  ```/home/pi/AHT10```
